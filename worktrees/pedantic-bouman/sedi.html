@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le nostre sedi — Centro Medico Minetti</title>
+  <meta name="description" content="Centro Medico Minetti è presente a Milano (Viale Pisa 10) e a Tione di Trento (Via del Foro 8). Trova la sede più vicina a te.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <svg width="38" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="lgN" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#60b8f5"/>
+            <stop offset="100%" stop-color="#1d5fd8"/>
+          </linearGradient>
+        </defs>
+        <rect x="13" y="2" width="12" height="36" rx="6" fill="url(#lgN)"/>
+        <rect x="2" y="14" width="34" height="12" rx="6" fill="url(#lgN)"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-label">Centro Medico</span>
+        <span class="logo-brand">MINETTI</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi Siamo</a></li>
+      <li class="dropdown">
+        <a href="servizi.html">Servizi <i class="fa-solid fa-chevron-down" style="font-size:.65rem;margin-left:2px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="servizi.html#odontoiatria"><i class="fa-solid fa-tooth" style="width:18px;color:var(--accent)"></i> Odontoiatria</a></li>
+          <li><a href="servizi.html#ortopedia"><i class="fa-solid fa-bone" style="width:18px;color:var(--accent)"></i> Ortopedia</a></li>
+          <li><a href="servizi.html#osteopatia"><i class="fa-solid fa-hands" style="width:18px;color:var(--accent)"></i> Osteopatia</a></li>
+          <li><a href="servizi.html#podologia"><i class="fa-solid fa-shoe-prints" style="width:18px;color:var(--accent)"></i> Podologia</a></li>
+          <li><a href="servizi.html#estetica"><i class="fa-solid fa-spa" style="width:18px;color:var(--accent)"></i> Medicina Estetica</a></li>
+          <li><a href="servizi.html#nutrizionista"><i class="fa-solid fa-apple-whole" style="width:18px;color:var(--accent)"></i> Nutrizionista</a></li>
+          <li><a href="servizi.html#ematologia"><i class="fa-solid fa-droplet" style="width:18px;color:var(--accent)"></i> Ematologia</a></li>
+        </ul>
+      </li>
+      <li><a href="specialisti.html">Specialisti</a></li>
+      <li><a href="convenzioni.html">Convenzioni</a></li>
+      <li><a href="sedi.html" class="active">Sedi</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+    <a href="contatti.html" class="btn btn-primary">Prenota una visita</a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <h1>Le nostre sedi</h1>
+    <p>Siamo presenti a Milano e a Tione di Trento per essere vicini ai nostri pazienti.</p>
+  </div>
+</div>
+<div class="breadcrumb">
+  <div class="container">
+    <a href="index.html">Home</a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <span>Sedi</span>
+  </div>
+</div>
+
+<!-- LOCATIONS -->
+<section class="locations-page">
+  <div class="container">
+
+    <!-- Milano -->
+    <div class="location-card">
+      <div class="location-header-bar">
+        <i class="fa-solid fa-hospital"></i>
+        <div>
+          <h2>Centro Medico Minetti — Milano</h2>
+          <p>La sede principale, attiva dal 1964</p>
+        </div>
+      </div>
+      <div class="location-body">
+        <div>
+          <ul class="location-info-list">
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <strong>Indirizzo</strong><br>
+                Viale Pisa n° 10, 20146 Milano (MI)
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <strong>Telefono</strong><br>
+                <a href="tel:+390240447401">+39 02 4044740</a>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <strong>Email generica</strong><br>
+                <a href="mailto:info@centromedicominetti.it">info@centromedicominetti.it</a>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-tooth"></i>
+              <div>
+                <strong>Email odontoiatria</strong><br>
+                <a href="mailto:info@studiodentisticominetti.it">info@studiodentisticominetti.it</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="location-map-placeholder">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <div>
+            <p><strong>Viale Pisa n° 10, Milano</strong></p>
+            <p style="margin-top:6px;font-size:.82rem">20146 Milano (MI)</p>
+          </div>
+          <a href="https://www.google.com/maps/search/Viale+Pisa+10+Milano" target="_blank" rel="noopener">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Apri in Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="location-services-bar">
+        <h4>Specializzazioni disponibili</h4>
+        <div class="tags">
+          <span class="tag"><i class="fa-solid fa-tooth" style="margin-right:5px;color:var(--accent)"></i>Odontoiatria</span>
+          <span class="tag"><i class="fa-solid fa-bone" style="margin-right:5px;color:var(--accent)"></i>Ortopedia</span>
+          <span class="tag"><i class="fa-solid fa-hands" style="margin-right:5px;color:var(--accent)"></i>Osteopatia</span>
+          <span class="tag"><i class="fa-solid fa-spa" style="margin-right:5px;color:var(--accent)"></i>Medicina Estetica</span>
+          <span class="tag"><i class="fa-solid fa-apple-whole" style="margin-right:5px;color:var(--accent)"></i>Nutrizionista</span>
+          <span class="tag"><i class="fa-solid fa-droplet" style="margin-right:5px;color:var(--accent)"></i>Ematologia</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tione di Trento -->
+    <div class="location-card">
+      <div class="location-header-bar">
+        <i class="fa-solid fa-hospital"></i>
+        <div>
+          <h2>Centro Medico Gea — Tione di Trento</h2>
+          <p>La nostra sede in Trentino</p>
+        </div>
+      </div>
+      <div class="location-body">
+        <div>
+          <ul class="location-info-list">
+            <li>
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <strong>Indirizzo</strong><br>
+                Via del Foro 8, 38079 Tione di Trento (TN)
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <strong>Telefono</strong><br>
+                <a href="tel:+390465324924">+39 0465 324924</a>
+              </div>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <strong>Email</strong><br>
+                <a href="mailto:studiogeatione@libero.it">studiogeatione@libero.it</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="location-map-placeholder">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <div>
+            <p><strong>Via del Foro 8, Tione di Trento</strong></p>
+            <p style="margin-top:6px;font-size:.82rem">38079 Tione di Trento (TN)</p>
+          </div>
+          <a href="https://www.google.com/maps/search/Via+del+Foro+8+Tione+di+Trento" target="_blank" rel="noopener">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Apri in Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="location-services-bar">
+        <h4>Specializzazioni disponibili</h4>
+        <div class="tags">
+          <span class="tag"><i class="fa-solid fa-tooth" style="margin-right:5px;color:var(--accent)"></i>Odontoiatria</span>
+          <span class="tag"><i class="fa-solid fa-spa" style="margin-right:5px;color:var(--accent)"></i>Medicina Estetica</span>
+          <span class="tag"><i class="fa-solid fa-shoe-prints" style="margin-right:5px;color:var(--accent)"></i>Podologia</span>
+          <span class="tag"><i class="fa-solid fa-apple-whole" style="margin-right:5px;color:var(--accent)"></i>Nutrizionista</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="container">
+    <div>
+      <h2>Prenota la tua visita</h2>
+      <p>Siamo a tua disposizione per informazioni e appuntamenti.</p>
+    </div>
+    <a href="contatti.html" class="btn btn-white">Contattaci</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="32" height="36" viewBox="0 0 38 40" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="lgF" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#93d4f8"/>
+                <stop offset="100%" stop-color="#4da8ee"/>
+              </linearGradient>
+            </defs>
+            <rect x="13" y="2" width="12" height="36" rx="6" fill="url(#lgF)"/>
+            <rect x="2" y="14" width="34" height="12" rx="6" fill="url(#lgF)"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-label" style="color:rgba(255,255,255,.45)">Centro Medico</span>
+            <span class="logo-brand" style="color:white">MINETTI</span>
+          </div>
+        </div>
+        <p>Dal 1964 offriamo cure mediche e odontoiatriche di eccellenza a Milano e Tione di Trento.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pagine</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="chi-siamo.html">Chi Siamo</a></li>
+          <li><a href="servizi.html">Servizi</a></li>
+          <li><a href="specialisti.html">Specialisti</a></li>
+          <li><a href="convenzioni.html">Convenzioni</a></li>
+          <li><a href="sedi.html">Sedi</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Servizi</h4>
+        <ul>
+          <li><a href="servizi.html#odontoiatria">Odontoiatria</a></li>
+          <li><a href="servizi.html#ortopedia">Ortopedia</a></li>
+          <li><a href="servizi.html#osteopatia">Osteopatia</a></li>
+          <li><a href="servizi.html#podologia">Podologia</a></li>
+          <li><a href="servizi.html#estetica">Medicina Estetica</a></li>
+          <li><a href="servizi.html#nutrizionista">Nutrizionista</a></li>
+          <li><a href="servizi.html#ematologia">Ematologia</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <ul class="footer-contact-list">
+          <li><i class="fa-solid fa-location-dot"></i> Viale Pisa n° 10, 20146 Milano</li>
+          <li><i class="fa-solid fa-phone"></i> <a href="tel:+390240447401">+39 02 4044740</a></li>
+          <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@centromedicominetti.it">info@centromedicominetti.it</a></li>
+          <li style="border-top:1px solid rgba(255,255,255,.08);padding-top:14px;margin-top:4px"><i class="fa-solid fa-location-dot"></i> Via del Foro 8, Tione di Trento</li>
+          <li><i class="fa-solid fa-phone"></i> <a href="tel:+390465324924">+39 0465 324924</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Centro Medico Minetti — P.I. 11298320158</p>
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookie-policy.html">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
