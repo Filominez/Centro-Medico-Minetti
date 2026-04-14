@@ -113,6 +113,76 @@ if (form) {
   });
 }
 
+/* ── Hero image carousel ── */
+(function() {
+  const wrap = document.getElementById('hero-carousel');
+  if (!wrap) return;
+  const imgs = wrap.querySelectorAll('img');
+  if (imgs.length < 2) return;
+  let current = 0;
+  setInterval(function() {
+    imgs[current].classList.remove('active');
+    current = (current + 1) % imgs.length;
+    imgs[current].classList.add('active');
+  }, 4000);
+})();
+
+/* ── Reviews carousel ── */
+(function() {
+  const carousel = document.getElementById('reviews-carousel');
+  const dotsWrap = document.getElementById('reviews-dots');
+  if (!carousel || !dotsWrap) return;
+
+  const slides = carousel.querySelectorAll('.review-slide');
+  if (slides.length === 0) return;
+
+  let current = 0;
+  let timer;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'reviews-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('.reviews-dot');
+
+  function goTo(next) {
+    if (next === current) return;
+    const cur = slides[current];
+    const nxt = slides[next];
+
+    // Slide out current
+    cur.classList.add('slide-out');
+    setTimeout(() => {
+      cur.classList.remove('active', 'slide-out');
+      cur.style.display = 'none';
+      // Show next
+      nxt.style.display = 'flex';
+      // Force reflow so transition triggers
+      void nxt.offsetWidth;
+      nxt.classList.add('active');
+    }, 400);
+
+    dots[current].classList.remove('active');
+    dots[next].classList.add('active');
+    current = next;
+    resetTimer();
+  }
+
+  function advance() {
+    goTo((current + 1) % slides.length);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(advance, 4000);
+  }
+
+  resetTimer();
+})();
+
 /* ── Smooth anchor scrolling for service page ── */
 document.querySelectorAll('a[href*="#"]').forEach(link => {
   link.addEventListener('click', e => {
