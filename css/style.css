@@ -195,8 +195,8 @@ section { padding: 100px 0; }
 .logo-text .logo-label  { font-size: .56rem; font-weight: 700; color: var(--text-muted); letter-spacing: .15em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
 .logo-text .logo-brand  { font-size: 1.05rem; font-weight: 800; color: var(--primary); letter-spacing: .05em; font-family: 'Inter', sans-serif; }
 
-.logo-img { height: 80px; width: auto; }
-.footer-logo-img { height: auto; width: 220px; }
+.logo-img { height: 62px; width: auto; }
+.footer-logo-img { height: auto; width: 200px; }
 .hero-logo-img { width: 200px; height: auto; position: relative; z-index: 1; filter: brightness(0) invert(1); }
 .about-logo-img { width: 110px; height: auto; position: relative; z-index: 1; }
 
@@ -307,7 +307,7 @@ section { padding: 100px 0; }
 .hero-content {
   padding: 80px 60px 80px 80px;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .hero-eyebrow {
   display: inline-block;
@@ -350,13 +350,21 @@ section { padding: 100px 0; }
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 104px);
-  background: var(--primary);
+  background: transparent;
   position: relative;
   overflow: hidden;
-  margin-right: -110px;
+  margin-right: -177px;
+  margin-left: -140px;
 }
 .hero-visual-wrap::before { display: none; }
-.hero-visual-wrap::after { display: none; }
+.hero-visual-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to right, #edf2f7 0%, #edf2f7 8%, rgba(237,242,247,0) 28%);
+  pointer-events: none;
+}
 .hero-panel {
   display: flex;
   flex-direction: column;
@@ -991,6 +999,15 @@ footer {
 
 /* ─── Specialists Page ──────────────────────────────────────────────────── */
 .specialists-page { background: var(--white); }
+.dept-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 80px;
+}
+.dept-row .dept-section { margin-bottom: 0; flex: 1; min-width: 0; }
+.dept-row .dept-section-wide { flex: 4; }
+.dept-row .dept-section-narrow { flex: 1; }
 .dept-section { margin-bottom: 80px; }
 .dept-section:last-child { margin-bottom: 0; }
 .dept-title {
@@ -1057,11 +1074,6 @@ footer {
 .spec-info { padding: 18px; }
 
 /* Compact horizontal dept row for minor specialties */
-.dept-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-}
 .dept-section-compact { margin-bottom: 80px; }
 .dept-mini-card {
   background: var(--white);
@@ -1342,7 +1354,6 @@ footer {
   .hero-stat:nth-child(3) { border-top: 1px solid var(--border); }
   .hero-stat:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
   .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-  .dept-row { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -1409,7 +1420,7 @@ footer {
   .convenzioni-grid { grid-template-columns: 1fr; }
   .specialists-dept-grid { grid-template-columns: repeat(2, 1fr); }
   .reviews-grid { grid-template-columns: 1fr; }
-  .dept-row { grid-template-columns: repeat(2, 1fr); }
+  .dept-row { flex-wrap: wrap; }
   .reviews-header-row { flex-direction: column; align-items: flex-start; }
   .location-header-bar { padding: 24px; }
   .location-body { padding: 24px; }
