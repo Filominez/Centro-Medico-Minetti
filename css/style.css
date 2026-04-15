@@ -1455,6 +1455,7 @@ footer {
   .specialists-page .dept-section { grid-column: span 1; margin: 0; }
   .specialists-page .dept-section-wide { grid-column: 1 / -1; }
   .specialists-page .container > div:last-child { grid-column: 1 / -1; }
+  .specialists-page .dept-section:not(.dept-section-wide) .specialists-dept-grid { grid-template-columns: 1fr; }
   .hero-stats .container { grid-template-columns: 1fr; }
   .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
   .hero-stat:last-child { border-bottom: none; }
