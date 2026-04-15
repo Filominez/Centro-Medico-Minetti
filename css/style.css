@@ -1404,7 +1404,8 @@ footer {
   .nav-links.open .dropdown.open .dropdown-menu { display: block; }
 
   .hero .container { grid-template-columns: 1fr; max-width: 1200px; padding: 0 28px; }
-  .hero-content { padding: 56px 28px; }
+  .hero-content { padding: 56px 28px; transform: none !important; text-align: center; }
+  .hero-content .hero-buttons { justify-content: center; }
   .hero-visual-wrap { display: none; }
   .hero { min-height: auto; }
   .hero-stats .container { grid-template-columns: repeat(2, 1fr); }
