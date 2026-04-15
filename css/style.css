@@ -1439,7 +1439,7 @@ footer {
   .stats-grid { grid-template-columns: 1fr; }
   .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
   .stat-item:last-child { border-bottom: none; }
-  .specialists-dept-grid { grid-template-columns: 1fr; }
+  .specialists-dept-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .hero-stats .container { grid-template-columns: 1fr; }
   .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
   .hero-stat:last-child { border-bottom: none; }
