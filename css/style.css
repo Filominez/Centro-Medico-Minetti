@@ -245,6 +245,14 @@ section { padding: 100px 0; }
   z-index: 200;
 }
 .dropdown:hover .dropdown-menu { display: block; }
+.dropdown-menu::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: -20px;
+  right: -20px;
+  height: 14px;
+}
 .dropdown-menu::before {
   content: '';
   position: absolute;
