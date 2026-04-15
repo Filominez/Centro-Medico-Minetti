@@ -1440,6 +1440,13 @@ footer {
   .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
   .stat-item:last-child { border-bottom: none; }
   .specialists-dept-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Mobile: sections side-by-side in 2-col grid; Odontoiatria spans full width */
+  .specialists-page .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .specialists-page .container > .dept-row { display: contents; }
+  .specialists-page .dept-section { grid-column: span 1; margin: 0; }
+  .specialists-page .dept-section-wide { grid-column: 1 / -1; }
+  .specialists-page .container > div:last-child { grid-column: 1 / -1; }
   .hero-stats .container { grid-template-columns: 1fr; }
   .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
   .hero-stat:last-child { border-bottom: none; }
