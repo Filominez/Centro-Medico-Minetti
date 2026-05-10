@@ -2,6 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /js/
 Disallow: /css/
-Disallow: /images/
 
 Sitemap: https://centromedicominetti.it/sitemap.xml
