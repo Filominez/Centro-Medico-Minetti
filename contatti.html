@@ -206,7 +206,14 @@
         <h2>Richiedi un appuntamento</h2>
         <p>Compila il modulo e ti ricontatteremo entro 24 ore lavorative per confermare la prenotazione.</p>
 
-        <form id="contact-form" novalidate>
+        <form id="contact-form" action="https://formsubmit.co/info@centromedicominetti.it" method="POST">
+          <!-- Formsubmit config -->
+          <input type="hidden" name="_subject" value="Nuova richiesta appuntamento — Centro Medico Minetti">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://filominez.github.io/Centro-Medico-Minetti/contatti?inviato=1">
+          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="_template" value="table">
+
           <div class="form-row">
             <div class="form-group">
               <label for="nome">Nome *</label>
@@ -269,9 +276,26 @@
             <i class="fa-solid fa-calendar-check"></i> Invia la richiesta
           </button>
         </form>
+
+        <!-- Success message (shown after redirect back) -->
+        <div id="form-success" style="display:none;background:#e8f5e9;border:1px solid #4caf50;border-radius:12px;padding:24px;text-align:center;margin-top:20px">
+          <i class="fa-solid fa-circle-check" style="font-size:2rem;color:#4caf50;margin-bottom:12px;display:block"></i>
+          <h3 style="color:#2e7d32;margin-bottom:8px">Richiesta inviata con successo!</h3>
+          <p style="color:#555;margin:0">Ti ricontatteremo entro 24 ore lavorative per confermare il tuo appuntamento.</p>
+        </div>
       </div>
 
     </div>
+
+<script>
+// Show success message if redirected back after form submission
+if(window.location.search.indexOf('inviato=1')!==-1){
+  document.getElementById('contact-form').style.display='none';
+  document.getElementById('form-success').style.display='block';
+  // Clean URL without reload
+  history.replaceState(null,'','./contatti');
+}
+</script>
   </div>
 </section>
 
