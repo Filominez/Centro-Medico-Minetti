@@ -206,13 +206,9 @@
         <h2>Richiedi un appuntamento</h2>
         <p>Compila il modulo e ti ricontatteremo entro 24 ore lavorative per confermare la prenotazione.</p>
 
-        <form id="contact-form" action="https://formsubmit.co/info@centromedicominetti.it" method="POST">
-          <!-- Formsubmit config -->
-          <input type="hidden" name="_subject" value="Nuova richiesta appuntamento — Centro Medico Minetti">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://filominez.github.io/Centro-Medico-Minetti/contatti?inviato=1">
-          <input type="text" name="_honey" style="display:none">
-          <input type="hidden" name="_template" value="table">
+        <form id="contact-form">
+          <!-- Honeypot anti-spam (hidden from humans) -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
           <div class="form-row">
             <div class="form-group">
@@ -277,24 +273,83 @@
           </button>
         </form>
 
-        <!-- Success message (shown after redirect back) -->
+        <!-- Success message -->
         <div id="form-success" style="display:none;background:#e8f5e9;border:1px solid #4caf50;border-radius:12px;padding:24px;text-align:center;margin-top:20px">
           <i class="fa-solid fa-circle-check" style="font-size:2rem;color:#4caf50;margin-bottom:12px;display:block"></i>
           <h3 style="color:#2e7d32;margin-bottom:8px">Richiesta inviata con successo!</h3>
           <p style="color:#555;margin:0">Ti ricontatteremo entro 24 ore lavorative per confermare il tuo appuntamento.</p>
+        </div>
+
+        <!-- Error message -->
+        <div id="form-error" style="display:none;background:#fce4ec;border:1px solid #e53935;border-radius:12px;padding:24px;text-align:center;margin-top:20px">
+          <i class="fa-solid fa-circle-xmark" style="font-size:2rem;color:#e53935;margin-bottom:12px;display:block"></i>
+          <h3 style="color:#c62828;margin-bottom:8px">Si è verificato un errore</h3>
+          <p style="color:#555;margin:0">Riprova più tardi oppure contattaci direttamente a <a href="mailto:info@centromedicominetti.it">info@centromedicominetti.it</a></p>
         </div>
       </div>
 
     </div>
 
 <script>
-// Show success message if redirected back after form submission
-if(window.location.search.indexOf('inviato=1')!==-1){
-  document.getElementById('contact-form').style.display='none';
-  document.getElementById('form-success').style.display='block';
-  // Clean URL without reload
-  history.replaceState(null,'','./contatti');
-}
+// ── CONTACT FORM HANDLER ──
+// Sends form data to a Google Apps Script web app endpoint
+(function(){
+  var SCRIPT_URL = 'GOOGLE_SCRIPT_URL_HERE'; // ← Replace with your deployed Apps Script URL
+
+  var form = document.getElementById('contact-form');
+  var successDiv = document.getElementById('form-success');
+  var errorDiv = document.getElementById('form-error');
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var btnOrigHTML = submitBtn.innerHTML;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // Honeypot check
+    if(form._honey && form._honey.value){ return; }
+
+    // Privacy checkbox
+    if(!form.privacy.checked){
+      alert('Devi accettare la Privacy Policy per continuare.');
+      return;
+    }
+
+    // Disable button & show loading
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Invio in corso…';
+    errorDiv.style.display = 'none';
+
+    // Collect form data
+    var data = {
+      nome: form.nome.value.trim(),
+      cognome: form.cognome.value.trim(),
+      email: form.email.value.trim(),
+      telefono: form.telefono.value.trim(),
+      specialita: form.specialita.value,
+      sede: form.sede.options[form.sede.selectedIndex].text,
+      messaggio: form.messaggio.value.trim(),
+      pagina: window.location.href,
+      timestamp: new Date().toLocaleString('it-IT',{timeZone:'Europe/Rome'})
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(function(){
+      form.style.display = 'none';
+      successDiv.style.display = 'block';
+      successDiv.scrollIntoView({behavior:'smooth',block:'center'});
+    })
+    .catch(function(){
+      errorDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = btnOrigHTML;
+    });
+  });
+})();
 </script>
   </div>
 </section>
