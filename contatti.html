@@ -333,14 +333,15 @@
 
     fetch(SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type':'application/json'},
       body: JSON.stringify(data)
     })
-    .then(function(){
-      form.style.display = 'none';
-      successDiv.style.display = 'block';
-      successDiv.scrollIntoView({behavior:'smooth',block:'center'});
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if(res.status === 'ok'){
+        form.style.display = 'none';
+        successDiv.style.display = 'block';
+        successDiv.scrollIntoView({behavior:'smooth',block:'center'});
+      } else { throw new Error(); }
     })
     .catch(function(){
       errorDiv.style.display = 'block';
