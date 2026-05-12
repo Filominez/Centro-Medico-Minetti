@@ -1017,6 +1017,7 @@ footer {
 .dept-row .dept-section { margin-bottom: 0; flex: 1; min-width: 0; }
 .dept-row .dept-section-wide { flex: 4; }
 .dept-row .dept-section-narrow { flex: 1; }
+.dept-section-narrow .spec-card { max-width: 204px; }
 .dept-section { margin-bottom: 80px; }
 .dept-section:last-child { margin-bottom: 0; }
 .dept-title {
@@ -1040,7 +1041,6 @@ footer {
   overflow: hidden;
   transition: all var(--t);
   position: relative;
-  max-width: 280px;
 }
 .spec-card::before {
   content: '';
