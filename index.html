@@ -31,6 +31,8 @@
   <meta property="og:title" content="Centro Medico Minetti – Dentista e Medicina Estetica a Milano">
   <meta property="og:description" content="Studio dentistico e centro di medicina estetica a Milano: odontoiatria, implantologia, ortodonzia, filler, botox e trattamenti viso al Centro Medico Minetti.">
   <meta property="og:image" content="https://centromedicominetti.it/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
   {
@@ -114,6 +116,7 @@
   </script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Vai al contenuto principale</a>
 
 <!-- ═══════════════════════════════ NAVBAR ════════════════════════════════ -->
 <header class="site-header">
@@ -156,9 +159,8 @@
 <section class="hero" aria-label="Introduzione">
   <div class="container">
     <div class="hero-content" style="transform:translateX(-100px)">
-      <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">Dentista e Centro Medico a Milano Bande Nere</h1>
       <div class="hero-eyebrow">Da oltre 60 anni</div>
-      <p class="hero-headline" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--primary);line-height:1.2;margin-bottom:22px" aria-hidden="true">La tua salute,<br>il tuo sorriso,<br>il tuo centro</p>
+      <h1 class="hero-headline" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:var(--primary);line-height:1.2;margin-bottom:22px">La tua salute,<br>il tuo sorriso,<br>il tuo centro</h1>
       <p>Il Centro Medico Minetti è uno studio odontoiatrico attivo a Milano dal 1964, che nel tempo ha ampliato la propria offerta con altri servizi specialistici e, più recentemente, con trattamenti di medicina estetica. Uniamo esperienza, professionalità e tecnologie moderne per prenderci cura della salute e del benessere dei nostri pazienti.</p>
       <div class="hero-buttons">
         <a href="https://www.miodottore.it/strutture/centro-medico-minetti-viale-pisa-10-milano?utm_source=widget-clinic-56649&utm_medium=link&widget=1&fid=56649&saasonly=true" class="btn btn-primary" target="_blank" rel="noopener">Prenota una visita</a>
@@ -379,12 +381,29 @@
 document.querySelectorAll('[data-ba]').forEach(function(slider){
   var line=slider.querySelector('.ba-line'),handle=slider.querySelector('.ba-handle'),after=slider.querySelector('.ba-after'),dragging=false;
   function move(x){var rect=slider.getBoundingClientRect(),pct=Math.max(0,Math.min(1,(x-rect.left)/rect.width))*100;after.style.clipPath='inset(0 0 0 '+pct+'%)';line.style.left=pct+'%';handle.style.left=pct+'%'}
+  function getPct(){return parseFloat(after.style.clipPath.match(/[\d.]+%\)$/)||['50%'])*1||50}
+  slider.setAttribute('tabindex','0');
+  slider.setAttribute('role','slider');
+  slider.setAttribute('aria-label','Cursore prima/dopo');
+  slider.setAttribute('aria-valuemin','0');
+  slider.setAttribute('aria-valuemax','100');
+  slider.setAttribute('aria-valuenow','50');
   slider.addEventListener('mousedown',function(e){dragging=true;move(e.clientX);e.preventDefault()});
   window.addEventListener('mousemove',function(e){if(dragging)move(e.clientX)});
   window.addEventListener('mouseup',function(){dragging=false});
   slider.addEventListener('touchstart',function(e){dragging=true;move(e.touches[0].clientX)},{passive:true});
   slider.addEventListener('touchmove',function(e){if(dragging)move(e.touches[0].clientX)},{passive:true});
   slider.addEventListener('touchend',function(){dragging=false});
+  slider.addEventListener('keydown',function(e){
+    var step=e.shiftKey?10:5,pct=getPct();
+    if(e.key==='ArrowLeft'||e.key==='ArrowDown'){pct=Math.max(0,pct-step);e.preventDefault()}
+    else if(e.key==='ArrowRight'||e.key==='ArrowUp'){pct=Math.min(100,pct+step);e.preventDefault()}
+    else if(e.key==='Home'){pct=0;e.preventDefault()}
+    else if(e.key==='End'){pct=100;e.preventDefault()}
+    else return;
+    after.style.clipPath='inset(0 0 0 '+pct+'%)';line.style.left=pct+'%';handle.style.left=pct+'%';
+    slider.setAttribute('aria-valuenow',Math.round(pct));
+  });
 })</script>
 
 <!-- ═══════════════════════════════ REVIEWS ══════════════════════════════ -->
@@ -546,7 +565,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-heading">Collegamento</h3>
+        <h3 class="footer-heading">Navigazione</h3>
         <ul>
           <li><a href="./">Home</a></li>
           <li><a href="./chi-siamo">Chi Siamo</a></li>

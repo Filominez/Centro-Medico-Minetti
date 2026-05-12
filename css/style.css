@@ -10,6 +10,7 @@
   --accent:       #8FA9C9;
   --text:         #2d3e50;
   --text-muted:   #636e72;
+  --text-light:   #636e72;
   --bg:           #ffffff;
   --bg-light:     #f7f9fc;
   --border:       #e8ecf0;
@@ -1477,4 +1478,23 @@ footer {
   .service-card { padding: 14px 12px; }
   .service-card h3 { font-size: .85rem; }
   .service-card p { font-size: .72rem; -webkit-line-clamp: 2; }
+}
+
+/* Skip to content link (accessibility) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--primary);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top .2s ease;
+}
+.skip-link:focus {
+  top: 0;
 }
