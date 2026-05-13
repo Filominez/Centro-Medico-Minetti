@@ -1499,3 +1499,54 @@ footer {
 .skip-link:focus {
   top: 0;
 }
+
+/* Booking floating button (bottom-left) */
+.book-float-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform .25s ease;
+}
+.book-float-btn:hover { transform: scale(1.08); }
+.book-float-btn-icon {
+  width: 56px;
+  height: 56px;
+  background: #25a244;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 16px rgba(37,162,68,.35);
+  transition: box-shadow .25s ease;
+}
+.book-float-btn:hover .book-float-btn-icon { box-shadow: 0 6px 24px rgba(37,162,68,.5); }
+.book-float-btn-label {
+  background: #fff;
+  color: var(--text);
+  font-size: .82rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  padding: 8px 14px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.1);
+  margin-left: 10px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+@media (min-width: 769px) {
+  .book-float-btn:hover .book-float-btn-label { opacity: 1; transform: translateX(0); }
+}
+@media (max-width: 768px) {
+  .book-float-btn { bottom: 18px; left: 18px; }
+  .book-float-btn-icon { width: 52px; height: 52px; font-size: 1.3rem; }
+  .book-float-btn-label { display: none; }
+}
