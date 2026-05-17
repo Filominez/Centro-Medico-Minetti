@@ -1383,7 +1383,7 @@ footer {
   .nav-toggle { display: block; }
   .nav-logo { margin-left: -20px; }
   #chirurgia-orale .ba-before,
-  #chirurgia-orale .ba-after { object-position: calc(50% - 10px) 50% !important; }
+  #chirurgia-orale .ba-after { object-position: calc(50% - 13px) 50% !important; }
 
   .nav-links.open {
     display: flex;
