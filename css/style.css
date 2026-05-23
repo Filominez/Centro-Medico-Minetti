@@ -1636,9 +1636,9 @@ footer {
 
 @media (max-width: 768px) {
   .floating-buttons { bottom: 18px; right: 18px; gap: 10px; }
-  .phone-float-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+  .phone-float-icon { width: 52px; height: 52px; font-size: 1.3rem; }
   .phone-float-label { display: none; }
-  .mail-float-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+  .mail-float-icon { width: 52px; height: 52px; font-size: 1.3rem; }
   .mail-float-label { display: none; }
   .whatsapp-float-icon { width: 52px; height: 52px; font-size: 1.5rem; }
   .whatsapp-float-label { display: none; }
