@@ -1503,6 +1503,57 @@ footer {
   top: 0;
 }
 
+/* Floating contact buttons (bottom-right) */
+.floating-buttons {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.floating-buttons a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-size: .85rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.floating-buttons a:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(0,0,0,.3); }
+.phone-float { background: var(--primary); }
+.mail-float { background: var(--primary); }
+.whatsapp-float { background: #25D366; }
+.phone-float-icon,
+.mail-float-icon,
+.whatsapp-float-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+.phone-float-label,
+.mail-float-label,
+.whatsapp-float-label { font-size: .82rem; }
+@media (max-width: 768px) {
+  .floating-buttons { bottom: 18px; right: 18px; gap: 10px; }
+  .phone-float-label,
+  .mail-float-label,
+  .whatsapp-float-label { display: none; }
+  .floating-buttons a { padding: 0; width: 48px; height: 48px; justify-content: center; border-radius: 50%; }
+}
+
 /* Booking floating button (bottom-left) */
 .book-float-btn {
   position: fixed;
