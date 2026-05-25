@@ -720,7 +720,8 @@ footer {
 }
 .footer-social a:hover { background: var(--teal); border-color: var(--teal); color: var(--white); }
 
-.footer-col h4 {
+.footer-col h4,
+.footer-col .footer-heading {
   font-size: .72rem;
   font-weight: 700;
   text-transform: uppercase;
