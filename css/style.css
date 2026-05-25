@@ -1421,7 +1421,13 @@ footer {
   .hero-content { padding: 56px 28px; transform: none !important; text-align: center; }
   .hero-content .hero-buttons { justify-content: center; }
   .hero-visual-wrap { display: none; }
-  .hero { min-height: auto; }
+  .hero {
+    min-height: auto;
+    background: linear-gradient(180deg, rgba(232,238,246,.92) 0%, rgba(220,230,240,.88) 100%), url('/../images/Carousel-Front-Page/Front-page.webp') center/cover no-repeat;
+  }
+  .hero-content { position: relative; z-index: 3; }
+  .hero-content h1 { color: var(--primary); }
+  .hero-content > p { color: var(--text-muted); }
   .hero-stats .container { grid-template-columns: repeat(2, 1fr); }
 
   section { padding: 68px 0; }
