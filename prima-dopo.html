@@ -28,7 +28,9 @@
   .ba-info{padding:18px 22px}
   .ba-info h3{font-size:1rem;color:var(--primary);margin-bottom:6px}
   .ba-info p{font-size:.85rem;color:var(--text-muted);margin:0;line-height:1.55}
-  @media(max-width:768px){.ba-grid{grid-template-columns:1fr;gap:20px}}
+  @media(max-width:768px){.ba-grid{grid-template-columns:1fr;gap:20px}
+    #chirurgia-orale .ba-before,#chirurgia-orale .ba-after{object-position:calc(50% - 13px) 50%!important}
+  }
   @media(max-width:480px){.ba-grid{gap:16px}.ba-handle{width:34px;height:34px}.ba-handle svg{width:16px;height:16px}}
   </style>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"></noscript>
@@ -196,7 +198,7 @@
       </div>
 
       <!-- 5. Chirurgia orale -->
-      <div class="ba-card">
+      <div class="ba-card" id="chirurgia-orale">
         <div class="ba-slider" data-ba>
           <img src="images/before-after/chirurgia-orale-prima.webp" alt="Prima — chirurgia orale" class="ba-before" style="object-position:calc(50% - 20px) 50%">
           <img src="images/before-after/chirurgia-orale-dopo.webp" alt="Dopo — chirurgia orale" class="ba-after" style="object-position:calc(50% - 20px) 50%">
