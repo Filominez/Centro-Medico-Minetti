@@ -1420,24 +1420,7 @@ footer {
   .hero .container { grid-template-columns: 1fr; max-width: 1200px; padding: 0 28px; }
   .hero-content { padding: 56px 28px; transform: none !important; text-align: center; }
   .hero-content .hero-buttons { justify-content: center; }
-  .hero-visual-wrap {
-    display: block;
-    min-height: auto;
-    margin: 0;
-    padding: 0 20px 32px;
-    border-radius: 0;
-  }
-  .hero-visual-wrap::after { display: none; }
-  .hero-carousel {
-    border-radius: 16px;
-    overflow: hidden;
-    max-height: 260px;
-  }
-  .hero-carousel img {
-    border-radius: 16px;
-    object-fit: cover;
-    max-height: 260px;
-  }
+  .hero-visual-wrap { display: none; }
   .hero { min-height: auto; }
   .hero-stats .container { grid-template-columns: repeat(2, 1fr); }
 
