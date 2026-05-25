@@ -1423,7 +1423,7 @@ footer {
   .hero-visual-wrap { display: none; }
   .hero {
     min-height: auto;
-    background: linear-gradient(180deg, rgba(232,238,246,.92) 0%, rgba(220,230,240,.88) 100%), url('/../images/Carousel-Front-Page/Front-page.webp') center/cover no-repeat;
+    background: linear-gradient(180deg, rgba(232,238,246,.92) 0%, rgba(220,230,240,.88) 100%), url('../images/Carousel-Front-Page/Front-page.webp') center/cover no-repeat;
   }
   .hero-content { position: relative; z-index: 3; }
   .hero-content h1 { color: var(--primary); }
