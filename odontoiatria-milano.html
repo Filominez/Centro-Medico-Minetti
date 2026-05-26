@@ -321,14 +321,11 @@
         <p>La protesi dentale restituisce funzione masticatoria ed estetica naturale quando i denti sono compromessi o mancanti. La <strong>protesi fissa</strong> — corone e ponti in ceramica integrale — è indicata in caso di usura avanzata o perdita di sostanza dentale, con ottima integrazione nel sorriso. La <strong>protesi mobile</strong>, totale o parziale scheletrata, permette di recuperare funzione e armonia in modo meno invasivo; realizziamo anche protesi su impianti (overdenture) per una maggiore stabilità.</p>
       </div>
       <div>
-        <div class="service-block-visual" style="background:none;padding:0;overflow:hidden">
-          <div class="ba-slider" data-ba style="height:auto;aspect-ratio:4/3">
-            <img src="images/before-after/Protesi-Before.webp" alt="Prima — protesi dentale" class="ba-before" style="object-position:0% center !important">
-            <img src="images/before-after/Protesi-After.webp" alt="Dopo — protesi dentale" class="ba-after" style="object-position:0% center !important">
-            <div class="ba-line"></div>
-            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-            <span class="ba-label ba-label-prima">Prima</span>
-            <span class="ba-label ba-label-dopo">Dopo</span>
+        <div class="service-block-visual" style="background:none;padding:0;overflow:hidden;border-radius:var(--radius)">
+          <div id="protesi-carousel" style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden">
+            <img src="images/before-after/Protesi-Before.webp" alt="Prima — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .6s ease;opacity:1">
+            <img src="images/before-after/Protesi-After.webp" alt="Dopo — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .6s ease;opacity:0">
+            <span style="position:absolute;bottom:10px;left:10px;font-size:.7rem;font-weight:600;padding:4px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.05em;z-index:2;background:rgba(0,0,0,.55);color:#fff" id="protesi-label">Prima</span>
           </div>
         </div>
         <p style="font-size:.8rem;color:var(--text-muted);text-align:center;margin-top:10px;font-style:italic">Protesi dentale fissa — prima e dopo</p>
@@ -568,6 +565,20 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     after.style.clipPath='inset(0 0 0 '+pct+'%)';line.style.left=pct+'%';handle.style.left=pct+'%';slider.setAttribute('aria-valuenow',Math.round(pct));
   });
 })
+</script>
+<script>
+;(function(){
+  var imgs=document.querySelectorAll('#protesi-carousel img');
+  var label=document.getElementById('protesi-label');
+  var labels=['Prima','Dopo'];
+  var current=0;
+  setInterval(function(){
+    imgs[current].style.opacity='0';
+    current=(current+1)%imgs.length;
+    imgs[current].style.opacity='1';
+    label.textContent=labels[current];
+  },1500);
+})();
 </script>
 <div class="floating-buttons"><a href="tel:+39024044740" class="phone-float" aria-label="Chiamaci"><span class="phone-float-label">Chiamaci</span><span class="phone-float-icon"><i class="fa-solid fa-phone"></i></span></a><a href="contatti#richiedi-appuntamento" class="mail-float" aria-label="Invia una richiesta"><span class="mail-float-label">Invia una richiesta</span><span class="mail-float-icon"><i class="fa-solid fa-envelope"></i></span></a><a href="https://wa.me/393296467561" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><span class="whatsapp-float-label">Scrivici su WhatsApp</span><span class="whatsapp-float-icon"><i class="fa-brands fa-whatsapp"></i></span></a></div>
 <a href="https://www.miodottore.it/strutture/centro-medico-minetti-viale-pisa-10-milano?utm_source=widget-clinic-56649&utm_medium=link&widget=1&fid=56649&saasonly=true" class="book-float-btn" target="_blank" rel="noopener" aria-label="Prenota una visita"><i class="fa-solid fa-calendar-check"></i> Prenota una visita</a>
