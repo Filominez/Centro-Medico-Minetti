@@ -625,11 +625,13 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, startW, floatLeft, floatTop, floatW, range;
-  var ready = false, lastW = 0;
+  var ready = false, lastW = 0, prog = 0;
+  var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
   function measure(){
     // reset float button to its natural fixed (bottom-left) state to measure it
-    floatBtn.style.transition = 'none';
+    // touch devices get a short GPU tween so sparse scroll events stay smooth; desktop stays crisp
+    floatBtn.style.transition = touch ? 'transform .14s ease-out' : 'none';
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
     floatBtn.style.willChange = 'transform';
@@ -653,16 +655,17 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
   function update(){
     if(!ready) return;
-    var s = window.scrollY || window.pageYOffset;
+    var s = window.scrollY || window.pageYOffset || 0;
     var t = Math.min(1, Math.max(0, s / range));
-    // easeInOutCubic — the slow start lets the hero spot ride up first (the cute hop)
-    var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+    // one-way progress: advances only on scroll-down, stays fixed on scroll-up
+    if(t > prog) prog = t;
+    var p = prog;
 
-    // hero spot rides up with the page content (the little "hop"), then swoops to the corner
-    var startTopNow = startVPTop - s;
-    var curLeft  = startVPLeft + (floatLeft - startVPLeft) * e;
-    var curTop   = startTopNow + (floatTop  - startTopNow) * e;
-    var curScale = (startW / floatW) + (1 - startW / floatW) * e;
+    var eH = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;  // horizontal: easeInOut
+    var eV = p*p*p;                                          // vertical: easeIn (stays high early → the hop)
+    var curLeft  = startVPLeft + (floatLeft - startVPLeft) * eH;
+    var curTop   = startVPTop  + (floatTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
+    var curScale = (startW / floatW) + (1 - startW / floatW) * eH;
 
     floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0) scale(' + curScale + ')';
   }
