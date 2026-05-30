@@ -629,7 +629,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
   function measure(){
     // reset float button to its natural fixed (bottom-left) state to measure it
-    floatBtn.style.transition = 'none';
+    floatBtn.style.transition = 'transform .12s linear';   // GPU tween smooths sparse mobile scroll events
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
     floatBtn.style.willChange = 'transform';
@@ -659,9 +659,8 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
     var curLeft  = startVPLeft + (floatLeft - startVPLeft) * e;
     var curTop   = startVPTop  + (floatTop  - startVPTop ) * e;
-    var curScale = (startW / floatW) + (1 - startW / floatW) * e;
 
-    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0) scale(' + curScale + ')';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0)';
   }
 
   var ticking = false;
