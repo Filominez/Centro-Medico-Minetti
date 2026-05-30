@@ -625,7 +625,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, startW, floatLeft, floatTop, floatW, range;
-  var ready = false, lastW = 0, prog = 0;
+  var ready = false, lastW = 0;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
   function measure(){
@@ -656,10 +656,9 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   function update(){
     if(!ready) return;
     var s = window.scrollY || window.pageYOffset || 0;
-    var t = Math.min(1, Math.max(0, s / range));
-    // one-way progress: advances only on scroll-down, stays fixed on scroll-up
-    if(t > prog) prog = t;
-    var p = prog;
+    // progress tracks scroll position both ways: moves to the corner on scroll-down,
+    // returns to the hero spot on scroll-up
+    var p = Math.min(1, Math.max(0, s / range));
 
     var eH = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;  // horizontal: easeInOut
     var eV = p*p*p;                                          // vertical: easeIn (stays high early → the hop)
