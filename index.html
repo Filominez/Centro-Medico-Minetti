@@ -624,7 +624,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var floatBtn = document.querySelector('.book-float-btn');
   if(!heroBtn || !floatBtn) return;
 
-  var startVPLeft, startVPTop, startH, floatH, gapLeft, gapBottom, range;
+  var startVPLeft, startVPTop, startW, startH, floatW, floatH, gapLeft, gapBottom, range;
   var ready = false, lastW = 0;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
@@ -637,7 +637,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     floatBtn.style.willChange = 'transform';
     floatBtn.style.backfaceVisibility = 'hidden';
     var fr = floatBtn.getBoundingClientRect();
-    floatH = fr.height;
+    floatW = fr.width; floatH = fr.height;
     gapLeft   = fr.left;                          // distance from left edge (constant)
     gapBottom = window.innerHeight - fr.bottom;   // distance from bottom edge (constant)
 
@@ -647,7 +647,8 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     var hr = heroBtn.getBoundingClientRect();
     startVPLeft = hr.left;
     startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
-    startH = hr.height;          // match the height of the sibling "Scopri i servizi" button
+    startW = hr.width;           // match width of the hero button (keeps the gap to "Scopri")
+    startH = hr.height;          // match height of the sibling "Scopri i servizi" button
 
     range = Math.max(260, Math.min(startVPTop, 440));
     lastW = window.innerWidth;
@@ -671,9 +672,12 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
     var curLeft  = startVPLeft + (naturalLeft - startVPLeft) * eH;
     var curTop   = startVPTop  + (naturalTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
-    var curScale = (startH / floatH) + (1 - startH / floatH) * eH;
+    // non-uniform scale: width -> hero button width (preserves the gap), height -> "Scopri" height
+    var rx = startW / floatW, ry = startH / floatH;
+    var curScaleX = rx + (1 - rx) * eH;
+    var curScaleY = ry + (1 - ry) * eH;
 
-    floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + curScale + ')';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + curScaleX + ',' + curScaleY + ')';
   }
 
   var ticking = false;
@@ -687,6 +691,8 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   // ignore height-only resizes from the mobile address bar showing/hiding
   window.addEventListener('resize', function(){ if(window.innerWidth !== lastW){ measure(); } });
   window.addEventListener('load', measure);
+  // re-measure once fonts/icons are ready so the height scale is accurate
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
 })();
 </script>
 </body>
