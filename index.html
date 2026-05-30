@@ -624,7 +624,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var floatBtn = document.querySelector('.book-float-btn');
   if(!heroBtn || !floatBtn) return;
 
-  var startPageLeft, startPageTop, startW, floatLeft, floatTop, floatW, range;
+  var startVPLeft, startVPTop, startW, floatLeft, floatTop, floatW, range;
   var ready = false;
 
   function measure(){
@@ -632,17 +632,20 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     floatBtn.style.transition = 'none';
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
+    floatBtn.style.willChange = 'transform';
+    floatBtn.style.backfaceVisibility = 'hidden';
     var fr = floatBtn.getBoundingClientRect();
     floatLeft = fr.left; floatTop = fr.top; floatW = fr.width;
 
-    // hero button page-anchored position
+    // hero button viewport position at the top of the page (fixed anchor — no content tracking)
     heroBtn.style.visibility = 'hidden';
+    var s0 = window.scrollY || window.pageYOffset || 0;
     var hr = heroBtn.getBoundingClientRect();
-    startPageLeft = hr.left + window.scrollX;
-    startPageTop  = hr.top + window.scrollY;
+    startVPLeft = hr.left;
+    startVPTop  = hr.top + s0;   // where the hero button sits in the viewport when scrollY = 0
     startW = hr.width;
 
-    range = Math.max(260, Math.min(startPageTop, 440));
+    range = Math.max(260, Math.min(startVPTop, 440));
     ready = true;
     update();
   }
@@ -654,13 +657,11 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     // easeInOutCubic
     var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
 
-    var startVPLeft = startPageLeft - (window.scrollX||0);
-    var startVPTop  = startPageTop - s;            // hero spot scrolls up with the page
     var curLeft  = startVPLeft + (floatLeft - startVPLeft) * e;
     var curTop   = startVPTop  + (floatTop  - startVPTop ) * e;
     var curScale = (startW / floatW) + (1 - startW / floatW) * e;
 
-    floatBtn.style.transform = 'translate(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px) scale(' + curScale + ')';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0) scale(' + curScale + ')';
   }
 
   var ticking = false;
