@@ -624,7 +624,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var floatBtn = document.querySelector('.book-float-btn');
   if(!heroBtn || !floatBtn) return;
 
-  var startVPLeft, startVPTop, startW, floatLeft, floatTop, floatW, range;
+  var startVPLeft, startVPTop, startW, floatW, floatH, gapLeft, gapBottom, range;
   var ready = false, lastW = 0;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
@@ -637,14 +637,16 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     floatBtn.style.willChange = 'transform';
     floatBtn.style.backfaceVisibility = 'hidden';
     var fr = floatBtn.getBoundingClientRect();
-    floatLeft = fr.left; floatTop = fr.top; floatW = fr.width;
+    floatW = fr.width; floatH = fr.height;
+    gapLeft   = fr.left;                          // distance from left edge (constant)
+    gapBottom = window.innerHeight - fr.bottom;   // distance from bottom edge (constant)
 
-    // hero button viewport position at the top of the page (fixed anchor — no content tracking)
+    // hero button anchored in PAGE coordinates — independent of the mobile address bar
     heroBtn.style.visibility = 'hidden';
     var s0 = window.scrollY || window.pageYOffset || 0;
     var hr = heroBtn.getBoundingClientRect();
     startVPLeft = hr.left;
-    startVPTop  = hr.top + s0;   // where the hero button sits in the viewport when scrollY = 0
+    startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
     startW = hr.width;
 
     range = Math.max(260, Math.min(startVPTop, 440));
@@ -657,16 +659,21 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     if(!ready) return;
     var s = window.scrollY || window.pageYOffset || 0;
     // progress tracks scroll position both ways: moves to the corner on scroll-down,
-    // returns to the hero spot on scroll-up
+    // returns to the EXACT hero spot on scroll-up (p=0 -> startVPLeft/startVPTop)
     var p = Math.min(1, Math.max(0, s / range));
 
     var eH = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;  // horizontal: easeInOut
     var eV = p*p*p;                                          // vertical: easeIn (stays high early → the hop)
-    var curLeft  = startVPLeft + (floatLeft - startVPLeft) * eH;
-    var curTop   = startVPTop  + (floatTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
+
+    // corner position recomputed live from the current window height (address-bar safe)
+    var naturalLeft = gapLeft;
+    var naturalTop  = window.innerHeight - floatH - gapBottom;
+
+    var curLeft  = startVPLeft + (naturalLeft - startVPLeft) * eH;
+    var curTop   = startVPTop  + (naturalTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
     var curScale = (startW / floatW) + (1 - startW / floatW) * eH;
 
-    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0) scale(' + curScale + ')';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + curScale + ')';
   }
 
   var ticking = false;
