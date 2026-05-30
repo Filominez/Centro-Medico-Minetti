@@ -629,7 +629,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
   function measure(){
     // reset float button to its natural fixed (bottom-left) state to measure it
-    floatBtn.style.transition = 'transform .12s linear';   // GPU tween smooths sparse mobile scroll events
+    floatBtn.style.transition = 'none';
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
     floatBtn.style.willChange = 'transform';
@@ -655,13 +655,16 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     if(!ready) return;
     var s = window.scrollY || window.pageYOffset;
     var t = Math.min(1, Math.max(0, s / range));
-    // easeInOutCubic
+    // easeInOutCubic — the slow start lets the hero spot ride up first (the cute hop)
     var e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
 
+    // hero spot rides up with the page content (the little "hop"), then swoops to the corner
+    var startTopNow = startVPTop - s;
     var curLeft  = startVPLeft + (floatLeft - startVPLeft) * e;
-    var curTop   = startVPTop  + (floatTop  - startVPTop ) * e;
+    var curTop   = startTopNow + (floatTop  - startTopNow) * e;
+    var curScale = (startW / floatW) + (1 - startW / floatW) * e;
 
-    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0)';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - floatLeft) + 'px,' + (curTop - floatTop) + 'px,0) scale(' + curScale + ')';
   }
 
   var ticking = false;
