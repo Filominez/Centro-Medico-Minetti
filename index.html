@@ -625,7 +625,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, startW, floatLeft, floatTop, floatW, range;
-  var ready = false;
+  var ready = false, lastW = 0;
 
   function measure(){
     // reset float button to its natural fixed (bottom-left) state to measure it
@@ -646,6 +646,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     startW = hr.width;
 
     range = Math.max(260, Math.min(startVPTop, 440));
+    lastW = window.innerWidth;
     ready = true;
     update();
   }
@@ -670,7 +671,9 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
   measure();
   window.addEventListener('scroll', onScroll, {passive:true});
-  window.addEventListener('resize', function(){ measure(); });
+  // only re-measure on a real width change (orientation / desktop resize);
+  // ignore height-only resizes from the mobile address bar showing/hiding
+  window.addEventListener('resize', function(){ if(window.innerWidth !== lastW){ measure(); } });
   window.addEventListener('load', measure);
 })();
 </script>
