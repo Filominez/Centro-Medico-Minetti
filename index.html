@@ -616,7 +616,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
 <script src="js/main.min.js"></script>
 <div class="floating-buttons"><a href="tel:+39024044740" class="phone-float" aria-label="Chiamaci"><span class="phone-float-label">Chiamaci</span><span class="phone-float-icon"><i class="fa-solid fa-phone"></i></span></a><a href="contatti#richiedi-appuntamento" class="mail-float" aria-label="Invia una richiesta"><span class="mail-float-label">Invia una richiesta</span><span class="mail-float-icon"><i class="fa-solid fa-envelope"></i></span></a><a href="https://wa.me/393296467561" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><span class="whatsapp-float-label">Scrivici su WhatsApp</span><span class="whatsapp-float-icon"><i class="fa-brands fa-whatsapp"></i></span></a></div>
-<a href="https://www.miodottore.it/strutture/centro-medico-minetti-viale-pisa-10-milano?utm_source=widget-clinic-56649&utm_medium=link&widget=1&fid=56649&saasonly=true" class="book-float-btn" target="_blank" rel="noopener" aria-label="Prenota una visita"><i class="fa-solid fa-calendar-check"></i> Prenota una visita</a>
+<a href="https://www.miodottore.it/strutture/centro-medico-minetti-viale-pisa-10-milano?utm_source=widget-clinic-56649&utm_medium=link&widget=1&fid=56649&saasonly=true" class="book-float-btn" target="_blank" rel="noopener" aria-label="Prenota una visita" style="opacity:0"><i class="fa-solid fa-calendar-check"></i> Prenota una visita</a>
 <script>
 /* Hero "Prenota una visita" button glides into the floating bottom-left button on scroll (index only) */
 (function(){
@@ -624,35 +624,52 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var floatBtn = document.querySelector('.book-float-btn');
   if(!heroBtn || !floatBtn) return;
 
-  var startVPLeft, startVPTop, startW, startH, floatW, floatH, gapLeft, gapBottom, range;
-  var ready = false, lastW = 0;
+  var startVPLeft, startVPTop, floatH, gapLeft, gapBottom, range, ry;
+  var ready = false, lastW = 0, shown = null;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
+  // at rest the REAL hero button (a true .btn) is shown — perfectly centered, undistorted;
+  // the floating button only appears while it's actually traveling to the corner
+  function setMode(mode){
+    if(mode === shown) return;
+    shown = mode;
+    if(mode === 'hero'){
+      heroBtn.style.opacity = '1';
+      heroBtn.style.pointerEvents = '';
+      floatBtn.style.opacity = '0';
+      floatBtn.style.pointerEvents = 'none';
+    } else {
+      heroBtn.style.opacity = '0';
+      heroBtn.style.pointerEvents = 'none';
+      floatBtn.style.opacity = '1';
+      floatBtn.style.pointerEvents = '';
+    }
+  }
+
   function measure(){
-    // reset float button to its natural fixed (bottom-left) state to measure it
     // touch devices get a short GPU tween so sparse scroll events stay smooth; desktop stays crisp
-    floatBtn.style.transition = touch ? 'transform .14s ease-out' : 'none';
+    floatBtn.style.transition = (touch ? 'transform .14s ease-out, ' : '') + 'opacity .15s ease';
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
-    floatBtn.style.willChange = 'transform';
+    floatBtn.style.willChange = 'transform, opacity';
     floatBtn.style.backfaceVisibility = 'hidden';
+    heroBtn.style.transition = 'opacity .15s ease';
     var fr = floatBtn.getBoundingClientRect();
-    floatW = fr.width; floatH = fr.height;
+    floatH = fr.height;
     gapLeft   = fr.left;                          // distance from left edge (constant)
     gapBottom = window.innerHeight - fr.bottom;   // distance from bottom edge (constant)
 
-    // hero button anchored in PAGE coordinates — independent of the mobile address bar
-    heroBtn.style.visibility = 'hidden';
+    // hero spot anchored in PAGE coordinates — independent of the mobile address bar
     var s0 = window.scrollY || window.pageYOffset || 0;
     var hr = heroBtn.getBoundingClientRect();
     startVPLeft = hr.left;
     startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
-    startW = hr.width;           // match width of the hero button (keeps the gap to "Scopri")
-    startH = hr.height;          // match height of the sibling "Scopri i servizi" button
+    ry = hr.height / floatH;     // uniform scale: match the sibling "Scopri i servizi" height
 
     range = Math.max(260, Math.min(startVPTop, 440));
     lastW = window.innerWidth;
     ready = true;
+    shown = null;               // force a fresh setMode on next update
     update();
   }
 
@@ -662,6 +679,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     // progress tracks scroll position both ways: moves to the corner on scroll-down,
     // returns to the EXACT hero spot on scroll-up (p=0 -> startVPLeft/startVPTop)
     var p = Math.min(1, Math.max(0, s / range));
+    setMode(p > 0 ? 'float' : 'hero');
 
     var eH = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;  // horizontal: easeInOut
     var eV = p*p*p;                                          // vertical: easeIn (stays high early → the hop)
@@ -672,12 +690,9 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
     var curLeft  = startVPLeft + (naturalLeft - startVPLeft) * eH;
     var curTop   = startVPTop  + (naturalTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
-    // non-uniform scale: width -> hero button width (preserves the gap), height -> "Scopri" height
-    var rx = startW / floatW, ry = startH / floatH;
-    var curScaleX = rx + (1 - rx) * eH;
-    var curScaleY = ry + (1 - ry) * eH;
+    var sc = ry + (1 - ry) * eH;   // UNIFORM scale → no text stretching; ends at 1.0 in the corner
 
-    floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + curScaleX + ',' + curScaleY + ')';
+    floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + sc + ')';
   }
 
   var ticking = false;
