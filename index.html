@@ -624,7 +624,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var floatBtn = document.querySelector('.book-float-btn');
   if(!heroBtn || !floatBtn) return;
 
-  var startVPLeft, startVPTop, startW, floatW, floatH, gapLeft, gapBottom, range;
+  var startVPLeft, startVPTop, startH, floatH, gapLeft, gapBottom, range;
   var ready = false, lastW = 0;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
 
@@ -637,7 +637,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     floatBtn.style.willChange = 'transform';
     floatBtn.style.backfaceVisibility = 'hidden';
     var fr = floatBtn.getBoundingClientRect();
-    floatW = fr.width; floatH = fr.height;
+    floatH = fr.height;
     gapLeft   = fr.left;                          // distance from left edge (constant)
     gapBottom = window.innerHeight - fr.bottom;   // distance from bottom edge (constant)
 
@@ -647,7 +647,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     var hr = heroBtn.getBoundingClientRect();
     startVPLeft = hr.left;
     startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
-    startW = hr.width;
+    startH = hr.height;          // match the height of the sibling "Scopri i servizi" button
 
     range = Math.max(260, Math.min(startVPTop, 440));
     lastW = window.innerWidth;
@@ -671,7 +671,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 
     var curLeft  = startVPLeft + (naturalLeft - startVPLeft) * eH;
     var curTop   = startVPTop  + (naturalTop  - startVPTop ) * eV - 70 * Math.sin(Math.PI * p); // -sin = the cute hop
-    var curScale = (startW / floatW) + (1 - startW / floatW) * eH;
+    var curScale = (startH / floatH) + (1 - startH / floatH) * eH;
 
     floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + curScale + ')';
   }
