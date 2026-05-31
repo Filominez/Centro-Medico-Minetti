@@ -13,6 +13,10 @@
   <style>:root{--primary:#1b3a6b;--primary-dark:#0f2347;--teal:#8FA9C9;--teal-dark:#4A6490;--teal-light:#E9EFF6;--accent:#8FA9C9;--text:#2d3e50;--text-muted:#636e72;--bg:#fff;--bg-light:#f7f9fc;--border:#e8ecf0;--white:#fff;--radius:16px;--radius-sm:10px;--t:.25s ease}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);line-height:1.65;background:var(--bg);padding-top:104px}img{display:block;max-width:100%}a{color:inherit}h1,h2,h3{font-family:Georgia,serif;line-height:1.2}h1{font-size:clamp(2.4rem,5vw,3.6rem);font-weight:700}h2{font-size:clamp(1.9rem,3.5vw,2.6rem);font-weight:700}.container{max-width:1200px;margin:0 auto;padding:0 28px}.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:104px;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,236,240,.8)}.navbar .container{display:flex;align-items:center;height:104px;gap:20px}.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}.logo-img{height:62px;width:auto}.nav-links{display:flex;list-style:none;gap:0;margin:0 auto}.nav-links>li>a{display:block;padding:8px 13px;font-size:.85rem;font-weight:500;color:var(--text);text-decoration:none}.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--text);font-size:1.3rem;margin-left:auto}.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:50px;font-size:.9rem;font-weight:600;text-decoration:none;border:2px solid transparent;white-space:nowrap}.btn-primary{background:var(--primary);color:var(--white);border-color:var(--primary)}.btn-outline{background:transparent;color:var(--primary);border-color:var(--primary)}.page-hero{background:linear-gradient(135deg,var(--primary) 0%,#1a4a8a 60%,#0f2347 100%);padding:80px 0 72px;text-align:center;color:var(--white)}.page-hero h1{margin-bottom:16px}.page-hero p{font-size:1.05rem;opacity:.78;max-width:560px;margin:0 auto}.breadcrumb{background:var(--bg-light);padding:14px 0;border-bottom:1px solid var(--border)}.breadcrumb .container{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--text-muted)}@media(max-width:768px){body{padding-top:64px}.navbar{height:64px}.navbar .container{height:64px}.nav-links{display:none}.navbar .btn-primary{display:none}.nav-toggle{display:block}.container{padding:0 18px}.page-hero{padding:48px 0 40px}.page-hero h1{font-size:clamp(1.6rem,6vw,2.2rem)}.breadcrumb .container{font-size:.75rem;gap:6px}}</style>
   <style>
   .ba-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:40px;max-width:960px;margin-left:auto;margin-right:auto}
+  .ba-section{max-width:960px;margin:56px auto 0}
+  .ba-section:first-of-type{margin-top:40px}
+  .ba-section-title{text-align:center;color:var(--primary);font-size:1.55rem;margin:0}
+  .ba-section .ba-grid{margin-top:22px}
   .ba-card{background:var(--bg-light);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:box-shadow .3s}
   .ba-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08)}
   .ba-slider{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:col-resize;-webkit-user-select:none;user-select:none;touch-action:pan-y}
@@ -29,6 +33,7 @@
   .ba-info h3{font-size:1rem;color:var(--primary);margin-bottom:6px}
   .ba-info p{font-size:.85rem;color:var(--text-muted);margin:0;line-height:1.55}
   @media(max-width:768px){.ba-grid{grid-template-columns:1fr;gap:20px}
+    .ba-section{margin-top:40px}.ba-section-title{font-size:1.3rem}
     #chirurgia-orale .ba-before,#chirurgia-orale .ba-after{object-position:calc(50% - 13px) 50%!important}
   }
   @media(max-width:480px){.ba-grid{gap:16px}.ba-handle{width:34px;height:34px}.ba-handle svg{width:16px;height:16px}}
@@ -131,133 +136,207 @@
 <!-- BEFORE & AFTER GALLERY -->
 <section style="padding:72px 0;background:var(--bg)">
   <div class="container">
-    <div class="ba-grid">
+    <!-- ════ Implantologia ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Implantologia</h2>
+      <div class="ba-grid">
 
-      <!-- 1. Parodontologia -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/parodontologia-prima.webp" alt="Prima — trattamento parodontale" class="ba-before">
-          <img src="images/before-after/parodontologia-dopo.webp" alt="Dopo — trattamento parodontale" class="ba-after">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/Implantologia-prima.webp" alt="Prima — implantologia dentale" class="ba-before">
+            <img src="images/before-after/Implantologia-dopo.webp" alt="Dopo — implantologia dentale" class="ba-after">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Implantologia dentale</h3>
+            <p>Sostituzione di un dente mancante con impianto e corona, per ripristinare funzione masticatoria ed estetica in modo stabile e duraturo.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Parodontologia</h3>
-          <p>Trattamento parodontale per curare le gengive e preservare i denti naturali dalla malattia parodontale.</p>
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/Implantologia-2-prima.webp" alt="Prima — riabilitazione implantare di un incisivo laterale" class="ba-before" style="object-position:calc(50% - 3px) center">
+            <img src="images/before-after/Implantologia-2-dopo.webp" alt="Dopo — riabilitazione implantare di un incisivo laterale" class="ba-after" style="object-position:calc(50% - 13px) calc(50% - 5px)">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Riabilitazione implantare</h3>
+            <p>Riabilitazione implantare di un incisivo laterale, per restituire armonia estetica al sorriso e una corretta funzione.</p>
+          </div>
         </div>
+
       </div>
+    </div>
 
-      <!-- 2. Faccette dentali -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/caso-2-prima.webp" alt="Prima delle faccette dentali" class="ba-before" style="object-position:calc(50% - 4px) center">
-          <img src="images/before-after/caso-2-dopo.webp" alt="Dopo faccette dentali" class="ba-after" style="object-position:calc(50% - 4px) center">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Ortodonzia ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Ortodonzia</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/caso-3-prima.webp" alt="Prima dell'ortodonzia" class="ba-before">
+            <img src="images/before-after/caso-3-dopo.webp" alt="Dopo ortodonzia" class="ba-after">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Ortodonzia</h3>
+            <p>Trattamento ortodontico fisso: dopo 18 mesi, un sorriso armonioso, funzionale ed esteticamente equilibrato.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Faccette dentali</h3>
-          <p>Faccette in ceramica per un sorriso naturale e armonioso.</p>
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/ortodonzia-prima.webp" alt="Prima — ortodonzia" class="ba-before">
+            <img src="images/before-after/ortodonzia-dopo.webp" alt="Dopo — ortodonzia" class="ba-after">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Ortodonzia</h3>
+            <p>Riallineamento dentale tramite apparecchio ortodontico per un'occlusione corretta e un sorriso più bello.</p>
+          </div>
         </div>
+
       </div>
+    </div>
 
-      <!-- 3. Ortodonzia -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/caso-3-prima.webp" alt="Prima dell'ortodonzia" class="ba-before">
-          <img src="images/before-after/caso-3-dopo.webp" alt="Dopo ortodonzia" class="ba-after">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Parodontologia ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Parodontologia</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/parodontologia-prima.webp" alt="Prima — trattamento parodontale" class="ba-before">
+            <img src="images/before-after/parodontologia-dopo.webp" alt="Dopo — trattamento parodontale" class="ba-after">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Parodontologia</h3>
+            <p>Trattamento parodontale per curare le gengive e preservare i denti naturali dalla malattia parodontale.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Ortodonzia</h3>
-          <p>Trattamento ortodontico fisso: dopo 18 mesi, un sorriso armonioso, funzionale ed esteticamente equilibrato.</p>
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/caso-1-prima.webp" alt="Prima del riposizionamento della papilla gengivale" class="ba-before" style="object-position:100% center">
+            <img src="images/before-after/caso-1-dopo.webp" alt="Dopo riposizionamento della papilla gengivale" class="ba-after" style="object-position:100% center">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Riposizionamento della papilla gengivale</h3>
+            <p>Intervento di chirurgia gengivale per ricostruire la papilla interdentale, eliminando gli spazi neri tra i denti e ripristinando un profilo gengivale naturale.</p>
+          </div>
         </div>
+
       </div>
+    </div>
 
-      <!-- 4. Ortodonzia (2) -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/ortodonzia-prima.webp" alt="Prima — ortodonzia" class="ba-before">
-          <img src="images/before-after/ortodonzia-dopo.webp" alt="Dopo — ortodonzia" class="ba-after">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Chirurgia orale ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Chirurgia orale</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card" id="chirurgia-orale">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/chirurgia-orale-prima.webp" alt="Prima — chirurgia orale" class="ba-before" style="object-position:calc(50% - 20px) 50%">
+            <img src="images/before-after/chirurgia-orale-dopo.webp" alt="Dopo — chirurgia orale" class="ba-after" style="object-position:calc(50% - 20px) 50%">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Chirurgia orale</h3>
+            <p>Intervento di chirurgia orale per risolvere problematiche complesse e ripristinare la salute del cavo orale.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Ortodonzia</h3>
-          <p>Riallineamento dentale tramite apparecchio ortodontico per un'occlusione corretta e un sorriso più bello.</p>
-        </div>
+
       </div>
+    </div>
 
-      <!-- 5. Chirurgia orale -->
-      <div class="ba-card" id="chirurgia-orale">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/chirurgia-orale-prima.webp" alt="Prima — chirurgia orale" class="ba-before" style="object-position:calc(50% - 20px) 50%">
-          <img src="images/before-after/chirurgia-orale-dopo.webp" alt="Dopo — chirurgia orale" class="ba-after" style="object-position:calc(50% - 20px) 50%">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Estetica dentale ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Estetica dentale</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/caso-2-prima.webp" alt="Prima delle faccette dentali" class="ba-before" style="object-position:calc(50% - 4px) center">
+            <img src="images/before-after/caso-2-dopo.webp" alt="Dopo faccette dentali" class="ba-after" style="object-position:calc(50% - 4px) center">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Faccette dentali</h3>
+            <p>Faccette in ceramica per un sorriso naturale e armonioso.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Chirurgia orale</h3>
-          <p>Intervento di chirurgia orale per risolvere problematiche complesse e ripristinare la salute del cavo orale.</p>
-        </div>
+
       </div>
+    </div>
 
-      <!-- 6. Riposizionamento della papilla gengivale -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/caso-1-prima.webp" alt="Prima del riposizionamento della papilla gengivale" class="ba-before" style="object-position:100% center">
-          <img src="images/before-after/caso-1-dopo.webp" alt="Dopo riposizionamento della papilla gengivale" class="ba-after" style="object-position:100% center">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Odontoiatria conservativa ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Odontoiatria conservativa</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card">
+          <div class="ba-slider" data-ba>
+            <img src="images/before-after/conservativa-prima.webp" alt="Prima — odontoiatria conservativa" class="ba-before">
+            <img src="images/before-after/conservativa-dopo.webp" alt="Dopo — odontoiatria conservativa" class="ba-after">
+            <div class="ba-line"></div>
+            <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
+            <span class="ba-label ba-label-prima">Prima</span>
+            <span class="ba-label ba-label-dopo">Dopo</span>
+          </div>
+          <div class="ba-info">
+            <h3>Odontoiatria conservativa</h3>
+            <p>Restauro dentale conservativo per ripristinare forma e funzione del dente, preservando la struttura naturale.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Riposizionamento della papilla gengivale</h3>
-          <p>Intervento di chirurgia gengivale per ricostruire la papilla interdentale, eliminando gli spazi neri tra i denti e ripristinando un profilo gengivale naturale.</p>
-        </div>
+
       </div>
+    </div>
 
-      <!-- 7. Odontoiatria conservativa -->
-      <div class="ba-card">
-        <div class="ba-slider" data-ba>
-          <img src="images/before-after/conservativa-prima.webp" alt="Prima — odontoiatria conservativa" class="ba-before">
-          <img src="images/before-after/conservativa-dopo.webp" alt="Dopo — odontoiatria conservativa" class="ba-after">
-          <div class="ba-line"></div>
-          <div class="ba-handle"><svg viewBox="0 0 24 24"><path d="M8.5 5l-5 7 5 7M15.5 5l5 7-5 7"/><path d="M3.5 12h17" stroke="currentColor" fill="none" stroke-width="2"/></svg></div>
-          <span class="ba-label ba-label-prima">Prima</span>
-          <span class="ba-label ba-label-dopo">Dopo</span>
+    <!-- ════ Protesi dentale ════ -->
+    <div class="ba-section">
+      <h2 class="ba-section-title">Protesi dentale</h2>
+      <div class="ba-grid">
+
+        <div class="ba-card">
+          <div id="protesi-carousel" style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden">
+            <img src="images/before-after/Protesi-Before.webp" alt="Prima — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .8s ease;opacity:1">
+            <img src="images/before-after/Protesi-After.webp" alt="Dopo — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .8s ease;opacity:0">
+            <span class="ba-label ba-label-prima" id="protesi-label">Prima</span>
+          </div>
+          <div class="ba-info">
+            <h3>Protesi dentale</h3>
+            <p>Corone e ponti in ceramica integrale per restituire funzione masticatoria ed estetica naturale al sorriso.</p>
+          </div>
         </div>
-        <div class="ba-info">
-          <h3>Odontoiatria conservativa</h3>
-          <p>Restauro dentale conservativo per ripristinare forma e funzione del dente, preservando la struttura naturale.</p>
-        </div>
+
       </div>
-
-      <!-- 8. Protesi dentale (carousel) -->
-      <div class="ba-card">
-        <div id="protesi-carousel" style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden">
-          <img src="images/before-after/Protesi-Before.webp" alt="Prima — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .8s ease;opacity:1">
-          <img src="images/before-after/Protesi-After.webp" alt="Dopo — protesi dentale" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0% center;transition:opacity .8s ease;opacity:0">
-          <span class="ba-label ba-label-prima" id="protesi-label">Prima</span>
-        </div>
-        <div class="ba-info">
-          <h3>Protesi dentale</h3>
-          <p>Corone e ponti in ceramica integrale per restituire funzione masticatoria ed estetica naturale al sorriso.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
