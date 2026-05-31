@@ -625,8 +625,13 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, floatH, gapLeft, gapBottom, range, ry;
-  var ready = false, lastW = 0, shown = null;
+  var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+
+  // short viewports = phone landscape: the hero spot sits far below a tiny fold, so the
+  // travel would fling the button across the whole screen. Skip the animation there and
+  // just leave both buttons in their normal places (hero in flow, float fixed at corner).
+  function isShort(){ return window.innerHeight < 500; }
 
   // at rest the REAL hero button (a true .btn) is shown — perfectly centered, undistorted;
   // the floating button only appears while it's actually traveling to the corner
@@ -647,6 +652,20 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   }
 
   function measure(){
+    lastW = window.innerWidth;
+    wasShort = isShort();
+    if(wasShort){
+      // landscape: disable travel — show both buttons statically in their natural spots
+      disabled = true; ready = false; shown = null;
+      floatBtn.style.transition = 'none';
+      floatBtn.style.transform = 'none';
+      floatBtn.style.opacity = '1';
+      floatBtn.style.pointerEvents = '';
+      heroBtn.style.opacity = '1';
+      heroBtn.style.pointerEvents = '';
+      return;
+    }
+    disabled = false;
     // touch devices get a short GPU tween so sparse scroll events stay smooth; desktop stays crisp
     floatBtn.style.transition = (touch ? 'transform .14s ease-out, ' : '') + 'opacity .15s ease';
     floatBtn.style.transform = 'none';
@@ -674,7 +693,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   }
 
   function update(){
-    if(!ready) return;
+    if(disabled || !ready) return;
     var s = window.scrollY || window.pageYOffset || 0;
     // progress tracks scroll position both ways: moves to the corner on scroll-down,
     // returns to the EXACT hero spot on scroll-up (p=0 -> startVPLeft/startVPTop)
@@ -704,7 +723,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   window.addEventListener('scroll', onScroll, {passive:true});
   // only re-measure on a real width change (orientation / desktop resize);
   // ignore height-only resizes from the mobile address bar showing/hiding
-  window.addEventListener('resize', function(){ if(window.innerWidth !== lastW){ measure(); } });
+  window.addEventListener('resize', function(){ if(window.innerWidth !== lastW || isShort() !== wasShort){ measure(); } });
   window.addEventListener('load', measure);
   // re-measure once fonts/icons are ready so the height scale is accurate
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
