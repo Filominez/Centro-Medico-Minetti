@@ -627,6 +627,10 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   var startVPLeft, startVPTop, floatH, gapLeft, gapBottom, range, ry;
   var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+  var vv = window.visualViewport;
+  // pinch-zoom creates a visual viewport at scale > 1; a position:fixed element jitters if we
+  // keep recomputing its transform mid-pinch, so we freeze the animation while zoomed
+  function isZoomed(){ return !!(vv && vv.scale > 1.01); }
 
   // short viewports = phone landscape: the hero spot sits far below a tiny fold, so the
   // travel would fling the button across the whole screen. Skip the animation there and
@@ -666,8 +670,9 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
       return;
     }
     disabled = false;
-    // touch devices get a short GPU tween so sparse scroll events stay smooth; desktop stays crisp
-    floatBtn.style.transition = (touch ? 'transform .14s ease-out, ' : '') + 'opacity .15s ease';
+    // only the opacity crossfade is tweened; the travel transform is driven per-frame by a
+    // rAF loop (below) with NO transition, so it tracks scroll at 60fps without trailing/lag
+    floatBtn.style.transition = 'opacity .15s ease';
     floatBtn.style.transform = 'none';
     floatBtn.style.transformOrigin = 'top left';
     floatBtn.style.willChange = 'transform, opacity';
@@ -693,7 +698,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   }
 
   function update(){
-    if(disabled || !ready) return;
+    if(disabled || !ready || isZoomed()) return;
     var s = window.scrollY || window.pageYOffset || 0;
     // progress tracks scroll position both ways: moves to the corner on scroll-down,
     // returns to the EXACT hero spot on scroll-up (p=0 -> startVPLeft/startVPTop)
@@ -714,17 +719,27 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     floatBtn.style.transform = 'translate3d(' + (curLeft - naturalLeft) + 'px,' + (curTop - naturalTop) + 'px,0) scale(' + sc + ')';
   }
 
-  var ticking = false;
-  function onScroll(){
-    if(!ticking){ ticking = true; requestAnimationFrame(function(){ update(); ticking = false; }); }
+  // self-sustaining rAF loop: while scrolling (and for a short coast after the last change)
+  // it reads scrollY every frame and updates directly — smooth 60fps even when the mobile
+  // browser delivers scroll events sparsely during momentum. Stops itself once scroll settles.
+  var rafId = null, lastS = -1, idle = 0;
+  function loop(){
+    var s = window.scrollY || window.pageYOffset || 0;
+    update();
+    if(s === lastS){ if(++idle > 5){ rafId = null; return; } }
+    else { idle = 0; lastS = s; }
+    rafId = requestAnimationFrame(loop);
   }
+  function kick(){ if(rafId === null){ idle = 0; lastS = -1; rafId = requestAnimationFrame(loop); } }
 
   measure();
-  window.addEventListener('scroll', onScroll, {passive:true});
-  // only re-measure on a real width change (orientation / desktop resize);
+  window.addEventListener('scroll', kick, {passive:true});
+  // only re-measure on a real width change (orientation / desktop resize), never while zoomed;
   // ignore height-only resizes from the mobile address bar showing/hiding
-  window.addEventListener('resize', function(){ if(window.innerWidth !== lastW || isShort() !== wasShort){ measure(); } });
+  window.addEventListener('resize', function(){ if(!isZoomed() && (window.innerWidth !== lastW || isShort() !== wasShort)){ measure(); } });
   window.addEventListener('load', measure);
+  // when pinch-zoom ends (scale back to ~1), resync the button to the current scroll position
+  if(vv){ vv.addEventListener('resize', function(){ if(!isZoomed()) kick(); }); }
   // re-measure once fonts/icons are ready so the height scale is accurate
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
 })();
