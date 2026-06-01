@@ -617,6 +617,58 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
 <script src="js/main.min.js"></script>
 <div class="floating-buttons"><a href="tel:+39024044740" class="phone-float" aria-label="Chiamaci"><span class="phone-float-label">Chiamaci</span><span class="phone-float-icon"><i class="fa-solid fa-phone"></i></span></a><a href="contatti#richiedi-appuntamento" class="mail-float" aria-label="Invia una richiesta"><span class="mail-float-label">Invia una richiesta</span><span class="mail-float-icon"><i class="fa-solid fa-envelope"></i></span></a><a href="https://wa.me/393296467561" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp"><span class="whatsapp-float-label">Scrivici su WhatsApp</span><span class="whatsapp-float-icon"><i class="fa-brands fa-whatsapp"></i></span></a></div>
 <a href="https://www.miodottore.it/strutture/centro-medico-minetti-viale-pisa-10-milano?utm_source=widget-clinic-56649&utm_medium=link&widget=1&fid=56649&saasonly=true" class="book-float-btn" target="_blank" rel="noopener" aria-label="Prenota una visita" style="opacity:0"><i class="fa-solid fa-calendar-check"></i> Prenota una visita</a>
+<style>
+/* Compositor-driven version of the hero->corner button glide (zero main-thread lag).
+   Only active when the browser supports scroll-driven animations; otherwise the JS
+   fallback below drives it. Identical motion: same easing, hop, scale and path. */
+@supports (animation-timeline: scroll()){
+  #hero-book-btn.book-st{
+    animation: heroBookFade linear both;
+    animation-timeline: scroll(root block);
+    /* animation-range set inline by JS to the measured travel distance */
+  }
+  .book-float-btn.book-st{
+    transform-origin: top left;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    animation: bookTravel linear both, bookFloatFade linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes heroBookFade {
+  0%   { opacity: 1; pointer-events: auto; }
+  5%   { opacity: 0; pointer-events: none; }
+  100% { opacity: 0; pointer-events: none; }
+}
+@keyframes bookFloatFade {
+  0%   { opacity: 0; pointer-events: none; }
+  5%   { opacity: 1; pointer-events: auto; }
+  100% { opacity: 1; pointer-events: auto; }
+}
+@keyframes bookTravel {
+    0% { transform: translate3d(calc(var(--ox) * 1.0), calc(var(--oy) * 1.0 - 0.0px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.0)); }
+    5% { transform: translate3d(calc(var(--ox) * 0.9995), calc(var(--oy) * 0.99987 - 10.95px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.0005)); }
+    10% { transform: translate3d(calc(var(--ox) * 0.996), calc(var(--oy) * 0.999 - 21.631px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.004)); }
+    15% { transform: translate3d(calc(var(--ox) * 0.9865), calc(var(--oy) * 0.99662 - 31.779px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.0135)); }
+    20% { transform: translate3d(calc(var(--ox) * 0.968), calc(var(--oy) * 0.992 - 41.145px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.032)); }
+    25% { transform: translate3d(calc(var(--ox) * 0.9375), calc(var(--oy) * 0.98438 - 49.497px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.0625)); }
+    30% { transform: translate3d(calc(var(--ox) * 0.892), calc(var(--oy) * 0.973 - 56.631px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.108)); }
+    35% { transform: translate3d(calc(var(--ox) * 0.8285), calc(var(--oy) * 0.95713 - 62.37px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.1715)); }
+    40% { transform: translate3d(calc(var(--ox) * 0.744), calc(var(--oy) * 0.936 - 66.574px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.256)); }
+    45% { transform: translate3d(calc(var(--ox) * 0.6355), calc(var(--oy) * 0.90887 - 69.138px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.3645)); }
+    50% { transform: translate3d(calc(var(--ox) * 0.5), calc(var(--oy) * 0.875 - 70.0px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.5)); }
+    55% { transform: translate3d(calc(var(--ox) * 0.3645), calc(var(--oy) * 0.83362 - 69.138px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.6355)); }
+    60% { transform: translate3d(calc(var(--ox) * 0.256), calc(var(--oy) * 0.784 - 66.574px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.744)); }
+    65% { transform: translate3d(calc(var(--ox) * 0.1715), calc(var(--oy) * 0.72537 - 62.37px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.8285)); }
+    70% { transform: translate3d(calc(var(--ox) * 0.108), calc(var(--oy) * 0.657 - 56.631px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.892)); }
+    75% { transform: translate3d(calc(var(--ox) * 0.0625), calc(var(--oy) * 0.57812 - 49.497px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.9375)); }
+    80% { transform: translate3d(calc(var(--ox) * 0.032), calc(var(--oy) * 0.488 - 41.145px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.968)); }
+    85% { transform: translate3d(calc(var(--ox) * 0.0135), calc(var(--oy) * 0.38588 - 31.779px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.9865)); }
+    90% { transform: translate3d(calc(var(--ox) * 0.004), calc(var(--oy) * 0.271 - 21.631px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.996)); }
+    95% { transform: translate3d(calc(var(--ox) * 0.0005), calc(var(--oy) * 0.14263 - 10.95px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 0.9995)); }
+    100% { transform: translate3d(calc(var(--ox) * 0.0), calc(var(--oy) * 0.0 - 0.0px), 0) scale(calc(var(--ry) + (1 - var(--ry)) * 1.0)); }
+}
+</style>
 <script>
 /* Hero "Prenota una visita" button glides into the floating bottom-left button on scroll (index only) */
 (function(){
@@ -625,8 +677,11 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, floatH, gapLeft, gapBottom, range, ry;
-  var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false;
+  var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false, cssMode = false;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+  // scroll-driven CSS animations run the glide on the compositor thread (no main-thread lag).
+  // When supported we just measure + feed CSS variables; otherwise we fall back to the JS loop.
+  var hasST = !!(window.CSS && CSS.supports && (CSS.supports('animation-timeline: scroll(root)') || CSS.supports('animation-timeline', 'scroll(root)')));
   var vv = window.visualViewport;
   // pinch-zoom creates a visual viewport at scale > 1; a position:fixed element jitters if we
   // keep recomputing its transform mid-pinch, so we freeze the animation while zoomed
@@ -658,9 +713,15 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   function measure(){
     lastW = window.innerWidth;
     wasShort = isShort();
+    // start from a clean slate so getBoundingClientRect reads the natural (untransformed) positions
+    heroBtn.classList.remove('book-st');
+    floatBtn.classList.remove('book-st');
+    floatBtn.style.animationRange = '';
+    heroBtn.style.animationRange = '';
+
     if(wasShort){
       // landscape: disable travel — show both buttons statically in their natural spots
-      disabled = true; ready = false; shown = null;
+      disabled = true; ready = false; cssMode = false; shown = null;
       floatBtn.style.transition = 'none';
       floatBtn.style.transform = 'none';
       floatBtn.style.opacity = '1';
@@ -670,14 +731,9 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
       return;
     }
     disabled = false;
-    // only the opacity crossfade is tweened; the travel transform is driven per-frame by a
-    // rAF loop (below) with NO transition, so it tracks scroll at 60fps without trailing/lag
-    floatBtn.style.transition = 'opacity .15s ease';
+
+    // measure natural boxes (classes removed above → no transform applied)
     floatBtn.style.transform = 'none';
-    floatBtn.style.transformOrigin = 'top left';
-    floatBtn.style.willChange = 'transform, opacity';
-    floatBtn.style.backfaceVisibility = 'hidden';
-    heroBtn.style.transition = 'opacity .15s ease';
     var fr = floatBtn.getBoundingClientRect();
     floatH = fr.height;
     gapLeft   = fr.left;                          // distance from left edge (constant)
@@ -689,9 +745,41 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     startVPLeft = hr.left;
     startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
     ry = hr.height / floatH;     // uniform scale: match the sibling "Scopri i servizi" height
-
     range = Math.max(260, Math.min(startVPTop, 440));
-    lastW = window.innerWidth;
+
+    if(hasST){
+      // COMPOSITOR PATH: feed the measured offsets to CSS custom properties and let the
+      // scroll-driven @keyframes animate the glide off the main thread (zero scroll lag).
+      cssMode = true; ready = true; shown = null;
+      var ox = startVPLeft - gapLeft;                                  // hero->corner X offset
+      var oy = startVPTop  - (window.innerHeight - floatH - gapBottom); // hero->corner Y offset
+      // safe base state: the float stays hidden/inert unless the scroll animation reveals it
+      // (so if the scroll timeline is ever inactive we degrade to hero-visible/float-hidden,
+      // never a broken overlap). The active animation overrides these as it travels.
+      floatBtn.style.transition = ''; floatBtn.style.transform = '';
+      floatBtn.style.opacity = '0';
+      floatBtn.style.pointerEvents = 'none';
+      heroBtn.style.transition = ''; heroBtn.style.opacity = ''; heroBtn.style.pointerEvents = '';
+      floatBtn.style.setProperty('--ox', ox + 'px');
+      floatBtn.style.setProperty('--oy', oy + 'px');
+      floatBtn.style.setProperty('--ry', ry);
+      floatBtn.style.animationRange = '0px ' + range + 'px';
+      heroBtn.style.animationRange  = '0px ' + range + 'px';
+      floatBtn.classList.add('book-st');
+      heroBtn.classList.add('book-st');
+      return;
+    }
+
+    // JS FALLBACK PATH (browsers without scroll-driven animations):
+    // only the opacity crossfade is tweened; the travel transform is driven per-frame by a
+    // rAF loop (below) with NO transition, so it tracks scroll at 60fps without trailing/lag
+    cssMode = false;
+    floatBtn.style.transition = 'opacity .15s ease';
+    floatBtn.style.transform = 'none';
+    floatBtn.style.transformOrigin = 'top left';
+    floatBtn.style.willChange = 'transform, opacity';
+    floatBtn.style.backfaceVisibility = 'hidden';
+    heroBtn.style.transition = 'opacity .15s ease';
     ready = true;
     shown = null;               // force a fresh setMode on next update
     update();
@@ -730,7 +818,7 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     else { idle = 0; lastS = s; }
     rafId = requestAnimationFrame(loop);
   }
-  function kick(){ if(rafId === null){ idle = 0; lastS = -1; rafId = requestAnimationFrame(loop); } }
+  function kick(){ if(cssMode) return; if(rafId === null){ idle = 0; lastS = -1; rafId = requestAnimationFrame(loop); } }
 
   measure();
   window.addEventListener('scroll', kick, {passive:true});
