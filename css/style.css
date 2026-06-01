@@ -1450,6 +1450,14 @@ footer {
   .contact-form-wrap { padding: 28px 24px; }
 }
 
+/* Mobile PORTRAIT only: lift the hero block higher on the Y axis so the
+   "Scopri i servizi" button clears Safari's bottom toolbar. Only the top
+   padding changes — internal spacing, sizes and format are untouched, and
+   the "Prenota una visita" button still animates to the corner on scroll. */
+@media (max-width: 768px) and (orientation: portrait) {
+  .hero-content { padding-top: 16px; }
+}
+
 @media (max-width: 480px) {
   .specialists-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .specialists-grid-4 .specialist-photo { aspect-ratio: 1 / 1; }
