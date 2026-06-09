@@ -634,6 +634,24 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     animation: bookTravel linear both, bookFloatFade linear both;
     animation-timeline: scroll(root block);
   }
+  /* MOBILE: no travel — the button just crossfades in place (hero out, corner in) on scroll */
+  #hero-book-btn.book-fade{
+    animation: heroFadeOut linear both;
+    animation-timeline: scroll(root block);
+  }
+  .book-float-btn.book-fade{
+    will-change: opacity;
+    animation: floatFadeIn linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes heroFadeOut {
+  0%   { opacity: 1; pointer-events: auto; }
+  100% { opacity: 0; pointer-events: none; }
+}
+@keyframes floatFadeIn {
+  0%   { opacity: 0; pointer-events: none; }
+  100% { opacity: 1; pointer-events: auto; }
 }
 @keyframes heroBookFade {
   0%   { opacity: 1; pointer-events: auto; }
@@ -677,8 +695,11 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   if(!heroBtn || !floatBtn) return;
 
   var startVPLeft, startVPTop, floatH, gapLeft, gapBottom, range, ry;
-  var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false, cssMode = false;
+  var ready = false, lastW = 0, shown = null, wasShort = false, disabled = false, cssMode = false, fadeMode = false;
   var touch = window.matchMedia && window.matchMedia('(pointer:coarse)').matches;
+  // MOBILE: no travel — the button simply crossfades (hero out / corner in) over this scroll distance
+  var FADE_DIST = 170;
+  function isMobile(){ return window.innerWidth <= 768; }
   // scroll-driven CSS animations run the glide on the compositor thread (no main-thread lag).
   // When supported we just measure + feed CSS variables; otherwise we fall back to the JS loop.
   var hasST = !!(window.CSS && CSS.supports && (CSS.supports('animation-timeline: scroll(root)') || CSS.supports('animation-timeline', 'scroll(root)')));
@@ -714,14 +735,14 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     lastW = window.innerWidth;
     wasShort = isShort();
     // start from a clean slate so getBoundingClientRect reads the natural (untransformed) positions
-    heroBtn.classList.remove('book-st');
-    floatBtn.classList.remove('book-st');
+    heroBtn.classList.remove('book-st', 'book-fade');
+    floatBtn.classList.remove('book-st', 'book-fade');
     floatBtn.style.animationRange = '';
     heroBtn.style.animationRange = '';
 
     if(wasShort){
       // landscape: disable travel — show both buttons statically in their natural spots
-      disabled = true; ready = false; cssMode = false; shown = null;
+      disabled = true; ready = false; cssMode = false; fadeMode = false; shown = null;
       floatBtn.style.transition = 'none';
       floatBtn.style.transform = 'none';
       floatBtn.style.opacity = '1';
@@ -746,6 +767,31 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
     startVPTop  = hr.top + s0;   // viewport Y of the hero spot when scrollY = 0
     ry = hr.height / floatH;     // uniform scale: match the sibling "Scopri i servizi" height
     range = Math.max(260, Math.min(startVPTop, 440));
+
+    if(isMobile()){
+      // MOBILE: scrap the travel — just crossfade the hero out and the corner button in,
+      // over the first FADE_DIST px of scroll. No transform; the float stays at its corner.
+      fadeMode = true;
+      if(hasST){
+        // compositor path: opacity-only scroll-driven crossfade (smooth, no main-thread work)
+        cssMode = true; ready = true;
+        floatBtn.style.transition = ''; floatBtn.style.transform = '';
+        floatBtn.style.opacity = '0'; floatBtn.style.pointerEvents = 'none';  // safe base: hidden until revealed
+        heroBtn.style.transition = ''; heroBtn.style.opacity = ''; heroBtn.style.pointerEvents = '';
+        floatBtn.style.animationRange = '0px ' + FADE_DIST + 'px';
+        heroBtn.style.animationRange  = '0px ' + FADE_DIST + 'px';
+        floatBtn.classList.add('book-fade');
+        heroBtn.classList.add('book-fade');
+        return;
+      }
+      // JS fallback: crossfade opacity in the rAF loop (opacity-only is cheap, no lag)
+      cssMode = false; ready = true; shown = null;
+      floatBtn.style.transition = ''; floatBtn.style.transform = 'none';
+      heroBtn.style.transition = '';
+      update();
+      return;
+    }
+    fadeMode = false;
 
     if(hasST){
       // COMPOSITOR PATH: feed the measured offsets to CSS custom properties and let the
@@ -786,8 +832,19 @@ document.querySelectorAll('[data-ba]').forEach(function(slider){
   }
 
   function update(){
-    if(disabled || !ready || isZoomed()) return;
+    if(disabled || !ready || isZoomed() || cssMode) return;
     var s = window.scrollY || window.pageYOffset || 0;
+
+    if(fadeMode){
+      // MOBILE JS fallback: simple opacity crossfade, no movement
+      var pf = Math.min(1, Math.max(0, s / FADE_DIST));
+      heroBtn.style.opacity = String(1 - pf);
+      heroBtn.style.pointerEvents = pf > 0.5 ? 'none' : '';
+      floatBtn.style.opacity = String(pf);
+      floatBtn.style.pointerEvents = pf > 0 ? '' : 'none';
+      return;
+    }
+
     // progress tracks scroll position both ways: moves to the corner on scroll-down,
     // returns to the EXACT hero spot on scroll-up (p=0 -> startVPLeft/startVPTop)
     var p = Math.min(1, Math.max(0, s / range));
