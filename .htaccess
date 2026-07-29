@@ -1,0 +1,23 @@
+# Centro Medico Minetti — URL routing (.htaccess)
+#
+# Purpose: serve the site's clean, extensionless URLs (e.g. /servizi,
+# /specialisti/andrea-minetti) by mapping each request to the matching
+# .html file. This keeps the address bar clean (no ".html" shown) and
+# works both at the site root and inside a subfolder such as /staging/.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # When the requested path is not an existing file or directory,
+  # but "<path>.html" exists, serve that file internally (URL stays clean).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
+
+# Optional custom 404 page — uncomment the line that matches where the site lives.
+# Production (site at the domain root):
+#   ErrorDocument 404 /404.html
+# While testing under /staging/:
+#   ErrorDocument 404 /staging/404.html
